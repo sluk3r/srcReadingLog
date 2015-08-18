@@ -1,2 +1,2 @@
-J:\code\github\mahout-play\mrlegacy\src\main\java\org\apache\mahout\cf\taste\impl\similarity\PearsonCorrelationSimilarity.java
-J:/code/github/mahout-play/mrlegacy/src/main/java/org/apache/mahout/cf/taste/impl/neighborhood/ThresholdUserNeighborhood.java
+F:\openSrc\github\cassandra\test\unit\org\apache\cassandra\db\commitlog\CommitLogUpgradeTest.java
+F:\openSrc\github\cassandra\test\unit\org\apache\cassandra\db\commitlog\CommitLogUpgradeTestMaker.java

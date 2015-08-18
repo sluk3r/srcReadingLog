@@ -30,6 +30,7 @@ public class FileScanDriver {
     @Test
     public void driver() throws IOException {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("./extractFileList.txt");
+        String parentPath = "F:\\openSrc\\github\\cassandra";
 
         InputStreamReader reader = new InputStreamReader(is);
         BufferedReader lineReader = new BufferedReader(reader);
@@ -38,19 +39,20 @@ public class FileScanDriver {
         while((filePath = lineReader.readLine()) != null ) {
             File srcFile = new File(filePath);
             System.out.println("-----------------------------------------------------------------------");
-            System.out.println(processSingleFile(srcFile) + "\n\n");
+            System.out.println(processSingleFile(srcFile, parentPath) + "\n\n");
         }
     }
 
 
-    private String processSingleFile(File file) throws IOException {
+    private String processSingleFile(File file, String parentPath) throws IOException {
         fileScan.addPatterns(Pattern.compile("//wxc (.*)"));
 
         List<String> comments = fileScan.extractComments(file);
         assertTrue(! comments.isEmpty());
 
         String filePath = file.getAbsolutePath();
-        StringBuilder content = new StringBuilder(filePath.split("mahout-play")[1] + "\n");
+//        StringBuilder content = new StringBuilder(filePath.split("F:\\openSrc\\github\\cassandra")[1] + "\n");
+        StringBuilder content = new StringBuilder(filePath.replace(parentPath, "") + "\n");
 
         int i = 1;
         for(String c: comments) {
