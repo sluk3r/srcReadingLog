@@ -1,32 +1,33 @@
-package cn.sluk3r.extractComments.scan;
+package cn.sluk3r.extractComments;
 
-import org.junit.Before;
-import org.junit.Test;
+import cn.sluk3r.extractComments.scan.FileScan;
 
 import java.io.*;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static junit.framework.Assert.*;
-
 /**
- * Created by wangxichun on 2015/4/10.
+ * Created by wangxichun on 2015/8/18.
  */
-public class FileScanDriver {
+public class Main {
     FileScan fileScan;
 
-    @Before
-    public void setUp() {
+    public Main() {
         fileScan = new FileScan();
         fileScan.setDeleteCommentPrefix(true);
     }
 
-    @Test
-    public void driver() throws IOException {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("./extractFileList.txt");
-        String parentPath = "F:\\openSrc\\github\\cassandra";
 
-        InputStreamReader reader = new InputStreamReader(is);
+    public static void main(String[] args) throws IOException {
+        String recordFilePath = args[0];
+        String parentPath = args[1];
+
+        Main main = new Main();
+        main.driver(recordFilePath, parentPath);
+    }
+
+    public void driver(String recordFilePath, String parentPath) throws IOException {
+        FileReader reader = new FileReader(new File(recordFilePath));
         BufferedReader lineReader = new BufferedReader(reader);
 
         String filePath = null;
@@ -42,10 +43,8 @@ public class FileScanDriver {
         fileScan.addPatterns(Pattern.compile("//wxc (.*)"));
 
         List<String> comments = fileScan.extractComments(file);
-        assertTrue(! comments.isEmpty());
 
         String filePath = file.getAbsolutePath();
-//        StringBuilder content = new StringBuilder(filePath.split("F:\\openSrc\\github\\cassandra")[1] + "\n");
         StringBuilder content = new StringBuilder(filePath.replace(parentPath, "") + "\n");
 
         int i = 1;
